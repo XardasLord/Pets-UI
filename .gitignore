@@ -2,4 +2,9 @@
 # This .gitignore file was automatically created by Microsoft(R) Visual Studio.
 ################################################################################
 
-/Pets-UI/Pets-UI.Mvc/obj/Debug
+/.vs
+/.vs/Pets-UI/v15
+/Pets-UI/.vs
+/Pets-UI/packages
+/Pets-UI/Pets-UI.Mvc/obj
+/Pets-UI/Pets-UI.Mvc/bin
