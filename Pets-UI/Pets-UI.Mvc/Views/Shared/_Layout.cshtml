@@ -24,10 +24,19 @@
                     <li>@Html.ActionLink("About", "About", "Home")</li>
                     <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
                 </ul>
-                <ul class="nav navbar-nav navbar-right">
-                    <li>@Html.ActionLink("Register", "Register", "User")</li>
-                    <li>@Html.ActionLink("Log in", "Login", "User")</li>
-                </ul>
+                @if(Session["LoggedIn"] != null && (bool)Session["LoggedIn"] == true)
+                {
+                    <ul class="nav navbar-nav navbar-right">
+                        <li>@Html.ActionLink("Logout", "Logout", "User")</li>
+                    </ul>
+                }
+                else
+                {
+                    <ul class="nav navbar-nav navbar-right">
+                        <li>@Html.ActionLink("Register", "Register", "User")</li>
+                        <li>@Html.ActionLink("Log in", "Login", "User")</li>
+                    </ul>
+                }
             </div>
         </div>
     </div>

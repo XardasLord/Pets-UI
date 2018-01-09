@@ -1,8 +1,29 @@
 ﻿
 @{
-    ViewBag.Title = "Login";
+    ViewBag.Title = "Login to the Pets-UI application";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 <h2>Login</h2>
+
+@ViewBag.Message
+
+<form id="form1" method="post" action="login"
+      enctype="application/x-www-form-urlencoded">
+    <div>
+        <label for="email">E-mail</label>
+    </div>
+    <div>
+        <input name="email" type="text" />
+    </div>
+    <div>
+        <label for="password">Password</label>
+    </div>
+    <div>
+        <input name="password" type="password" />
+    </div>
+    <div>
+        <input type="submit" value="Submit" />
+    </div>
+</form>
 
