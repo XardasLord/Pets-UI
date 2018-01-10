@@ -10,13 +10,21 @@
 
 <div class="row">
     <div class="col-md-4">
-        <h2>Getting started</h2>
+        <h2>Show animals available for care</h2>
         <p>
-            ASP.NET MVC gives you a powerful, patterns-based way to build dynamic websites that
-            enables a clean separation of concerns and gives you full control over markup
-            for enjoyable, agile development.
+            Text...
         </p>
         <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301865">Learn more &raquo;</a></p>
+        <form id="form1" method="get" action="@Url.Action("Show", "Animal")">
+            <div>
+                <input type="submit" value="Show available animals" />
+            </div>
+        </form>
+        <form id="form1" method="get" action="@Url.Action("ShowArchive", "Animal")">
+            <div>
+                <input type="submit" value="Show archive animals" />
+            </div>
+        </form>
     </div>
     <div class="col-md-4">
         <h2>Get more libraries</h2>

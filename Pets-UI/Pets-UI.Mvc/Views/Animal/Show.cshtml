@@ -1,0 +1,15 @@
+﻿@model List<Pets_UI.Mvc.Models.AnimalToCare>
+
+@{
+    ViewBag.Title = "Animals available for take care of";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Animals available for take care of</h2>
+
+@ViewBag.Message
+
+@foreach (var animalToCare in Model)
+{
+    @animalToCare.Animal.Name
+}
