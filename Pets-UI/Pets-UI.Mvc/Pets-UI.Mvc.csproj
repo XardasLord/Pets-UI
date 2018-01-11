@@ -194,6 +194,7 @@
     <Content Include="Views\User\Login.cshtml" />
     <Content Include="Views\Animal\Show.cshtml" />
     <Content Include="Views\Animal\ShowArchive.cshtml" />
+    <Content Include="Views\Animal\Details.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

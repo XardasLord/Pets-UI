@@ -9,7 +9,38 @@
 
 @ViewBag.Message
 
-@foreach (var animalToCare in Model)
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model[0].Animal.Name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model[0].DateFrom)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model[0].DateTo)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model[0].IsTaken)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model)
 {
-    @animalToCare.Animal.Name
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Animal.Name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DateFrom)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DateTo)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.IsTaken)
+        </td>
+    </tr>
 }
+</table>
