@@ -195,6 +195,8 @@
     <Content Include="Views\Animal\Show.cshtml" />
     <Content Include="Views\Animal\ShowArchive.cshtml" />
     <Content Include="Views\Animal\Details.cshtml" />
+    <Content Include="Views\Animal\MyAnimals.cshtml" />
+    <Content Include="Views\Animal\Add.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

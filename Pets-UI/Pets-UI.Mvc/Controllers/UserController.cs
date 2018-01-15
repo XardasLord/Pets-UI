@@ -45,7 +45,7 @@ namespace Pets_UI.Mvc.Controllers
 
                     if (response.StatusCode == System.Net.HttpStatusCode.OK || response.StatusCode == System.Net.HttpStatusCode.Found)
                     {
-                        SetLoggedInInformation(true);
+                        SetLoggedInInformation(true, email);
 
                         return RedirectToAction("Index", "Home");
                     }
@@ -67,9 +67,10 @@ namespace Pets_UI.Mvc.Controllers
             }
         }
 
-        private void SetLoggedInInformation(bool isLogged)
+        private void SetLoggedInInformation(bool isLogged, string email = null)
         {
             Session["LoggedIn"] = isLogged;
+            Session["Email"] = email;
         }
     }
 }
