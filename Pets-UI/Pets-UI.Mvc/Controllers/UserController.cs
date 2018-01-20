@@ -5,6 +5,8 @@ using System.Web.Mvc;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
 using System.Text;
+using System.Net;
+using Pets_UI.Mvc.Models;
 
 namespace Pets_UI.Mvc.Controllers
 {
@@ -38,14 +40,15 @@ namespace Pets_UI.Mvc.Controllers
 
             try
             {
-                using (var client = new HttpClient())
+                using (var handler = new HttpClientHandler())
                 {
                     var content = new StringContent(JsonConvert.SerializeObject(values), Encoding.UTF8, "application/json");
-                    var response = await client.PostAsync("http://www.pets.pawelkowalewicz.pl/users/login", content);
+                    var response = await MyHttpClient.GetInstance(handler).PostAsync("http://www.pets.pawelkowalewicz.pl/users/login", content);
 
-                    if (response.StatusCode == System.Net.HttpStatusCode.OK || response.StatusCode == System.Net.HttpStatusCode.Found)
+                    if (response.StatusCode == HttpStatusCode.OK || response.StatusCode == HttpStatusCode.Found)
                     {
                         SetLoggedInInformation(true, email);
+                        Session["Cookies"] = handler.CookieContainer.GetCookies(new Uri("http://www.pets.pawelkowalewicz.pl/"));
 
                         return RedirectToAction("Index", "Home");
                     }
@@ -55,8 +58,9 @@ namespace Pets_UI.Mvc.Controllers
                         ViewBag.Message = "Incorrect e-mail or password!";
 
                         return View();
-                    }
+                    }    
                 }
+                
             }
             catch (Exception)
             {

@@ -150,6 +150,7 @@
     </Compile>
     <Compile Include="Models\Animal.cs" />
     <Compile Include="Models\AnimalToCare.cs" />
+    <Compile Include="Models\MyHttpClient.cs" />
     <Compile Include="Models\User.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
