@@ -38,11 +38,14 @@
                     @Html.DisplayFor(modelItem => item.YearOfBirth)
                 </td>
                 <td>
-                    @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
+                    @Html.ActionLink("Add to care list", "AddToCareList", new { animalName = item.Name }) |
+                    @Html.ActionLink("Edit", "Edit", new { animalName = item.Name }) |
                     @Html.ActionLink("Delete", "Delete", new { animalName = item.Name })
                 </td>
             </tr>
         }
     }
-
 </table>
+<p>
+    <a href="javascript:history.back()">Back</a>
+</p>

@@ -26,8 +26,8 @@
         <th></th>
     </tr>
 
-@foreach (var item in Model)
-{
+    @foreach (var item in Model)
+    {
     <tr>
         <td>
             @Html.DisplayFor(modelItem => item.Animal.Name)
@@ -41,6 +41,12 @@
         <td>
             @Html.DisplayFor(modelItem => item.IsTaken)
         </td>
+        <td>
+            @Html.ActionLink("Take animal to care", "TakeToCare", "Animal", new { animalId = item.Animal.Id }, null)
+        </td>
     </tr>
-}
+    }
 </table>
+<p>
+    <a href="javascript:history.back()">Back</a>
+</p>

@@ -28,22 +28,25 @@
 
     @foreach (var item in Model)
     {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Animal.Name)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.DateFrom)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.DateTo)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.IsTaken)
-        </td>
-        <td>
-            @Html.ActionLink("Details", "Details", "Animal", new { animalId = item.Animal.Id }, null)
-        </td>
-    </tr>
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Animal.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DateFrom)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DateTo)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.IsTaken)
+            </td>
+            <td>
+                @Html.ActionLink("Details", "Details", "Animal", new { animalId = item.Animal.Id }, null)
+            </td>
+        </tr>
     }
 </table>
+<p>
+    <a href="javascript:history.back()">Back</a>
+</p>
