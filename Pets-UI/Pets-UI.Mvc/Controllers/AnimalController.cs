@@ -203,7 +203,55 @@ namespace Pets_UI.Mvc.Controllers
             }
         }
 
-        //TODO: POST REQUEST FOR TAKING ANIMAL TO CARE: http://www.pets.pawelkowalewicz.pl/animals_to_care/care
+        [HttpGet]
+        public async Task<ActionResult> TakeToCare(Guid animalId)
+        {
+            User user = null;
+
+            try
+            {
+                user = await GetUserAsync(Session["Email"].ToString());
+            }
+            catch (Exception e)
+            {
+                ViewBag.Message = e.Message;
+
+                return RedirectToAction("Show", "Animal");
+            }
+
+            var url = "http://www.pets.pawelkowalewicz.pl/animals_to_care/care";
+            var values = new Dictionary<string, string>
+            {
+                { "userId", user.Id.ToString()},
+                { "animalId", animalId.ToString() }
+            };
+
+            try
+            {
+                using (var handler = new HttpClientHandler() { CookieContainer = GetCookieContainer() })
+                {
+                    var content = new StringContent(JsonConvert.SerializeObject(values), Encoding.UTF8, "application/json");
+                    var response = await MyHttpClient.GetInstance(handler).PostAsync(url, content);
+
+                    if (response.IsSuccessStatusCode)
+                    {
+                        return RedirectToAction("Show", "Animal");
+                    }
+                    else
+                    {
+                        ViewBag.Message = "There is some problem and the animal cannot be get to carring. Try again later.";
+
+                        return RedirectToAction("Show", "Animal");
+                    }
+                }
+            }
+            catch (Exception)
+            {
+                ViewBag.Message = "There is some problem with the external API system. Try again later.";
+
+                return RedirectToAction("Show", "Animal");
+            }
+        }
 
         [HttpGet]
         public async Task<ActionResult> MyAnimals()
@@ -220,6 +268,58 @@ namespace Pets_UI.Mvc.Controllers
             }
 
             return View(animals);
+        }
+
+        [HttpPost]
+        public async Task<ActionResult> Add(Animal animal)
+        {
+            if (!ModelState.IsValid)
+            {
+                ViewBag.Message = "There is some problem with the animal model. Try again later.";
+
+                return View();
+            }
+
+            if (Session["Email"] == null)
+            {
+                ViewBag.Message = "You have to be logged in to see your own animals.";
+
+                return View();
+            }
+
+            var url = $"http://www.pets.pawelkowalewicz.pl/users/{Session["Email"]}/Animals";
+            var values = new Dictionary<string, string>
+            {
+                { "name", animal.Name },
+                { "yearOfBirth", animal.YearOfBirth.ToString() }
+            };
+
+            try
+            {
+                using (var handler = new HttpClientHandler() { CookieContainer = GetCookieContainer() })
+                {
+                    var content = new StringContent(JsonConvert.SerializeObject(values), Encoding.UTF8, "application/json");
+                    var response = await MyHttpClient.GetInstance(handler).PostAsync(url, content);
+
+                    if (response.IsSuccessStatusCode)
+                    {
+                        return RedirectToAction("MyAnimals", "Animal");
+                    }
+                    else
+                    {
+                        ViewBag.Message = "There is some problem and the animal cannot be added. Try again later.";
+
+                        return View();
+                    }
+                }
+
+            }
+            catch (Exception)
+            {
+                ViewBag.Message = "There is some problem with the external API login system. Try again later.";
+
+                return View();
+            }
         }
 
         public ActionResult Add()
@@ -369,58 +469,6 @@ namespace Pets_UI.Mvc.Controllers
             return animals;
         }
 
-        [HttpPost]
-        public async Task<ActionResult> Add(Animal animal)
-        {
-            if (!ModelState.IsValid)
-            {
-                ViewBag.Message = "There is some problem with the animal model. Try again later.";
-
-                return View();
-            }
-
-            if (Session["Email"] == null)
-            {
-                ViewBag.Message = "You have to be logged in to see your own animals.";
-
-                return View();
-            }
-
-            var url = $"http://www.pets.pawelkowalewicz.pl/users/{Session["Email"]}/Animals";
-            var values = new Dictionary<string, string>
-            {
-                { "name", animal.Name },
-                { "yearOfBirth", animal.YearOfBirth.ToString() }
-            };
-
-            try
-            {
-                using (var handler = new HttpClientHandler() { CookieContainer = GetCookieContainer() })
-                {
-                    var content = new StringContent(JsonConvert.SerializeObject(values), Encoding.UTF8, "application/json");
-                    var response = await MyHttpClient.GetInstance(handler).PostAsync(url, content);
-
-                    if (response.IsSuccessStatusCode)
-                    {
-                        return RedirectToAction("MyAnimals", "Animal");
-                    }
-                    else
-                    {
-                        ViewBag.Message = "There is some problem and the animal cannot be added. Try again later.";
-                 
-                        return View();
-                    }
-                }
-                
-            }
-            catch (Exception)
-            {
-                ViewBag.Message = "There is some problem with the external API login system. Try again later.";
-
-                return View();
-            }
-        }
-
         private async Task DeleteAsync(string animalName)
         {
             if (Session["Email"] == null)
@@ -441,6 +489,35 @@ namespace Pets_UI.Mvc.Controllers
             catch (Exception)
             {
                 throw new Exception("There is some problem with the external API. Try again later.");
+            }
+        }
+
+        private async Task<User> GetUserAsync(string email)
+        {
+            var url = $"http://www.pets.pawelkowalewicz.pl/users/{email}";
+
+            try
+            {
+                using (var handler = new HttpClientHandler() { CookieContainer = GetCookieContainer() })
+                {
+                    var response = await MyHttpClient.GetInstance(handler).GetAsync(url);
+
+                    if (response.IsSuccessStatusCode)
+                    {
+                        string jsondata = await response.Content.ReadAsStringAsync();
+                        var user = JsonConvert.DeserializeObject<User>(jsondata);
+
+                        return user;
+                    }
+                    else
+                    {
+                        throw new Exception("There is some problem and the animal cannot be get to carring. Try again later.");
+                    }
+                }
+            }
+            catch (Exception)
+            {
+                throw new Exception("There is some problem with the external API system. Try again later.");
             }
         }
 
