@@ -3,40 +3,37 @@
 }
 
 <div class="jumbotron">
-    <h1>ASP.NET</h1>
-    <p class="lead">ASP.NET is a free web framework for building great Web sites and Web applications using HTML, CSS and JavaScript.</p>
-    <p><a href="https://asp.net" class="btn btn-primary btn-lg">Learn more &raquo;</a></p>
+    <h1>Pets-IU</h1>
+    <p class="lead">This is an UI application which is using my own RESTful API which I created before.</p>
+    <p><a href="https://github.com/XardasLord/Pets" class="btn btn-primary btn-lg">Here is a repository for this API built in .NET Core &raquo;</a></p>
 </div>
 
 <div class="row">
     <div class="col-md-4">
         <h2>Show animals available for care</h2>
-        <p>
-            Text...
-        </p>
-        <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301865">Learn more &raquo;</a></p>
+        
         <form id="form1" method="get" action="@Url.Action("Show", "Animal")">
-            <div>
-                <input type="submit" value="Show available animals" />
-            </div>
+            <p>
+                <input class="btn btn-default" type="submit" value="Show available animals &raquo;" />
+            </p>
         </form>
         <form id="form1" method="get" action="@Url.Action("ShowArchive", "Animal")">
-            <div>
-                <input type="submit" value="Show archive animals" />
-            </div>
+            <p>
+                <input class="btn btn-default" type="submit" value="Show archive animals &raquo;" />
+            </p>
         </form>
     </div>
     <div class="col-md-4">
         <h2>My animals</h2>
         <form id="form1" method="get" action="@Url.Action("MyAnimals", "Animal")">
-            <div>
-                <input type="submit" value="Show my animals" />
-            </div>
+            <p>
+                <input class="btn btn-default" type="submit" value="Show my animals &raquo;" />
+            </p>
         </form>
     </div>
     <div class="col-md-4">
-        <h2>Web Hosting</h2>
-        <p>You can easily find a web hosting company that offers the right mix of features and price for your applications.</p>
-        <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301867">Learn more &raquo;</a></p>
+        <h2>Topic</h2>
+        <p>Text...</p>
+        <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301867">Example link &raquo;</a></p>
     </div>
 </div>

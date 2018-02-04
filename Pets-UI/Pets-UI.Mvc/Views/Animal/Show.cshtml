@@ -42,7 +42,8 @@
             @Html.DisplayFor(modelItem => item.IsTaken)
         </td>
         <td>
-            @Html.ActionLink("Take animal to care", "TakeToCare", "Animal", new { animalId = item.Animal.Id }, null)
+            @Html.ActionLink("Take animal to care", "TakeToCare", "Animal", new { animalId = item.Animal.Id }, null) |
+            @Html.ActionLink("Details", "Details", "Animal", new { animalId = item.Animal.Id }, null)
         </td>
     </tr>
     }

@@ -525,8 +525,11 @@ namespace Pets_UI.Mvc.Controllers
         {
             CookieContainer cookieContainer = new CookieContainer();
 
-            CookieCollection cookies = (CookieCollection)Session["Cookies"];
-            cookieContainer.Add(new Uri("http://www.pets.pawelkowalewicz.pl/"), cookies);
+            if (Session["Cookies"] != null)
+            {
+                CookieCollection cookies = (CookieCollection)Session["Cookies"];
+                cookieContainer.Add(new Uri("http://www.pets.pawelkowalewicz.pl/"), cookies);
+            }
 
             return cookieContainer;
         }
