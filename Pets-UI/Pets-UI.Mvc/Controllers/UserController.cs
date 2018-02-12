@@ -29,6 +29,22 @@ namespace Pets_UI.Mvc.Controllers
             return RedirectToAction("Index", "Home");
         }
 
+        public new async Task<ActionResult> Profile()
+        {
+            User user = null;
+
+            try
+            {
+                user = await GetUserAsync(Session["Email"].ToString());
+            }
+            catch (Exception e)
+            {
+                ViewBag.Message = e.Message;
+            }
+
+            return View(user);
+        }
+
         [HttpPost]
         public async Task<ActionResult> Login(string email, string password)
         {
@@ -109,6 +125,80 @@ namespace Pets_UI.Mvc.Controllers
 
                 return View();
             }
+        }
+
+        [HttpPost]
+        public new async Task<ActionResult> Profile(User user)
+        {
+            if (!ModelState.IsValid)
+            {
+                ViewBag.Message = "There is some problem with the user model. Try again later.";
+
+                return View();
+            }
+
+            var url = $"http://www.pets.pawelkowalewicz.pl/users/{user.Email}";
+
+            try
+            {
+                using (var handler = new HttpClientHandler() { CookieContainer = GetCookieContainer() })
+                {
+                    var content = new StringContent(JsonConvert.SerializeObject(user), Encoding.UTF8, "application/json");
+                    var response = await MyHttpClient.GetInstance(handler).PutAsync(url, content);
+
+                    if (response.IsSuccessStatusCode)
+                    {
+                        SetLoggedInInformation(true, user.Email);
+                        return RedirectToAction("Index", "Home");
+                    }
+                    else
+                    {
+                        ViewBag.Message = "There is some problem and the profile edit cannot be done. Try again later.";
+
+                        return View();
+                    }
+                }
+
+            }
+            catch (Exception)
+            {
+                ViewBag.Message = "There is some problem with the external API profile editting system. Try again later.";
+
+                return View();
+            }
+        }
+
+        public async Task<User> GetUserAsync(string email)
+        {
+            if (email == null)
+                throw new Exception("You have to be logged in to see your own animals.");
+
+            User user = null;
+            var url = $"http://www.pets.pawelkowalewicz.pl/users/{email}";
+
+            try
+            {
+                using (var client = new HttpClient())
+                {
+                    var response = await client.GetAsync(url);
+
+                    if (response.StatusCode == HttpStatusCode.OK)
+                    {
+                        string jsondata = await response.Content.ReadAsStringAsync();
+                        user = JsonConvert.DeserializeObject<User>(jsondata);
+                    }
+                    else
+                    {
+                        throw new Exception("There is some problem with retrieving your profile information from the external API. Try again later.");
+                    }
+                }
+            }
+            catch (Exception)
+            {
+                throw new Exception("There is some problem with the external API. Try again later.");
+            }
+
+            return user;
         }
 
         private void SetLoggedInInformation(bool isLogged, string email = null)

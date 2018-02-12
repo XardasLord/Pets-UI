@@ -200,6 +200,9 @@
     <Content Include="Views\Animal\Edit.cshtml" />
     <Content Include="Views\Animal\AddToCareList.cshtml" />
     <Content Include="Views\User\Register.cshtml" />
+    <Content Include="Views\Animal\MyTakenAnimals.cshtml" />
+    <Content Include="Views\Animal\MyTakenAnimalsArchive.cshtml" />
+    <Content Include="Views\User\Profile.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

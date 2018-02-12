@@ -26,9 +26,10 @@
                 </ul>
                 @if(Session["LoggedIn"] != null && (bool)Session["LoggedIn"] == true)
                 {
-                    <ul class="nav navbar-nav navbar-right">
-                        <li>@Html.ActionLink("Logout", "Logout", "User")</li>
-                    </ul>
+                <ul class="nav navbar-nav navbar-right">
+                    <li>@Html.ActionLink("Edit profile", "Profile", "User")</li>
+                    <li>@Html.ActionLink("Log out", "Logout", "User")</li>
+                </ul>
                 }
                 else
                 {

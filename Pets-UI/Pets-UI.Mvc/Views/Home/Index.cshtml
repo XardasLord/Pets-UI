@@ -4,8 +4,9 @@
 
 <div class="jumbotron">
     <h1>Pets-IU</h1>
-    <p class="lead">This is an UI application which is using my own RESTful API which I created before.</p>
+    <p class="lead">This is an UI application built in ASP.NET MVC which is using my own RESTful API which I created before. Both repositories are available by clicking the buttons below.</p>
     <p><a href="https://github.com/XardasLord/Pets" class="btn btn-primary btn-lg">Here is a repository for this API built in .NET Core &raquo;</a></p>
+    <p><a href="https://github.com/XardasLord/Pets-UI" class="btn btn-primary btn-lg">Here is a repository for this ASP.NET MVC project &raquo;</a></p>
 </div>
 
 <div class="row">
@@ -19,7 +20,7 @@
         </form>
         <form id="form1" method="get" action="@Url.Action("ShowArchive", "Animal")">
             <p>
-                <input class="btn btn-default" type="submit" value="Show archive animals &raquo;" />
+                <input class="btn btn-default" type="submit" value="Show animals (archive) &raquo;" />
             </p>
         </form>
     </div>
@@ -28,6 +29,16 @@
         <form id="form1" method="get" action="@Url.Action("MyAnimals", "Animal")">
             <p>
                 <input class="btn btn-default" type="submit" value="Show my animals &raquo;" />
+            </p>
+        </form>
+        <form id="form1" method="get" action="@Url.Action("MyTakenAnimals", "Animal")">
+            <p>
+                <input class="btn btn-default" type="submit" value="Show my taken animals to care &raquo;" />
+            </p>
+        </form>
+        <form id="form1" method="get" action="@Url.Action("MyTakenAnimalsArchive", "Animal")">
+            <p>
+                <input class="btn btn-default" type="submit" value="Show my taken animals to care (archive) &raquo;" />
             </p>
         </form>
     </div>

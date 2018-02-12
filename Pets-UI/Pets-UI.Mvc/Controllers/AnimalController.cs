@@ -270,6 +270,40 @@ namespace Pets_UI.Mvc.Controllers
             return View(animals);
         }
 
+        [HttpGet]
+        public async Task<ActionResult> MyTakenAnimals()
+        {
+            List<AnimalToCare> animals = null;
+
+            try
+            {
+                animals = await GetMyTakenAnimalsAsync(false);
+            }
+            catch (Exception e)
+            {
+                ViewBag.Message = e.Message;
+            }
+
+            return View(animals);
+        }
+
+        [HttpGet]
+        public async Task<ActionResult> MyTakenAnimalsArchive()
+        {
+            List<AnimalToCare> animals = null;
+
+            try
+            {
+                animals = await GetMyTakenAnimalsAsync(true);
+            }
+            catch (Exception e)
+            {
+                ViewBag.Message = e.Message;
+            }
+
+            return View(animals);
+        }
+
         [HttpPost]
         public async Task<ActionResult> Add(Animal animal)
         {
@@ -450,7 +484,7 @@ namespace Pets_UI.Mvc.Controllers
                 {
                     var response = await client.GetAsync(url);
 
-                    if (response.StatusCode == System.Net.HttpStatusCode.OK)
+                    if (response.StatusCode == HttpStatusCode.OK)
                     {
                         string jsondata = await response.Content.ReadAsStringAsync();
                         animals = JsonConvert.DeserializeObject<List<Animal>>(jsondata);
@@ -458,6 +492,45 @@ namespace Pets_UI.Mvc.Controllers
                     else
                     {
                         throw new Exception("There is some problem with retrieving your animals from the external API. Try again later.");
+                    }
+                }
+            }
+            catch (Exception)
+            {
+                throw new Exception("There is some problem with the external API. Try again later.");
+            }
+
+            return animals;
+        }
+
+        private async Task<List<AnimalToCare>> GetMyTakenAnimalsAsync(bool archiveAnimals = false)
+        {
+            if (Session["Email"] == null)
+                throw new Exception("You have to be logged in to see your own animals.");
+
+            List<AnimalToCare> animals = null;
+            var url = "";
+
+            if(archiveAnimals)
+                url = $"http://www.pets.pawelkowalewicz.pl/users/{Session["Email"]}/animals_to_care/archive";
+            else
+                url = $"http://www.pets.pawelkowalewicz.pl/users/{Session["Email"]}/animals_to_care";
+
+
+            try
+            {
+                using (var client = new HttpClient())
+                {
+                    var response = await client.GetAsync(url);
+
+                    if (response.StatusCode == HttpStatusCode.OK)
+                    {
+                        string jsondata = await response.Content.ReadAsStringAsync();
+                        animals = JsonConvert.DeserializeObject<List<AnimalToCare>>(jsondata);
+                    }
+                    else
+                    {
+                        throw new Exception("There is some problem with retrieving your animals taken for care from the external API. Try again later.");
                     }
                 }
             }
