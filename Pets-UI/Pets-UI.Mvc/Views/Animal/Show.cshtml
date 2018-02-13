@@ -42,7 +42,11 @@
             @Html.DisplayFor(modelItem => item.IsTaken)
         </td>
         <td>
-            @Html.ActionLink("Take animal to care", "TakeToCare", "Animal", new { animalId = item.Animal.Id }, null) |
+            @if (Session["Email"] != null && item.Animal.User.Email != Session["Email"].ToString())
+            {
+                @Html.ActionLink("Take animal to care", "TakeToCare", "Animal", new { animalId = item.Animal.Id }, null);
+                <br />
+            }
             @Html.ActionLink("Details", "Details", "Animal", new { animalId = item.Animal.Id }, null)
         </td>
     </tr>

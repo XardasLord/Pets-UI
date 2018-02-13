@@ -46,24 +46,25 @@ namespace Pets_UI.Mvc.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult> Login(string email, string password)
+        public async Task<ActionResult> Login(User user)
         {
-            var values = new Dictionary<string, string>
+            if (!ModelState.IsValid)
             {
-                { "email", email },
-                { "password", password }
-            };
+                ViewBag.Message = "There is some problem with the user model. Try again later.";
+
+                return View();
+            }
 
             try
             {
                 using (var handler = new HttpClientHandler())
                 {
-                    var content = new StringContent(JsonConvert.SerializeObject(values), Encoding.UTF8, "application/json");
+                    var content = new StringContent(JsonConvert.SerializeObject(user), Encoding.UTF8, "application/json");
                     var response = await MyHttpClient.GetInstance(handler).PostAsync("http://www.pets.pawelkowalewicz.pl/users/login", content);
 
                     if (response.StatusCode == HttpStatusCode.OK || response.StatusCode == HttpStatusCode.Found)
                     {
-                        SetLoggedInInformation(true, email);
+                        SetLoggedInInformation(true, user.Email);
                         Session["Cookies"] = handler.CookieContainer.GetCookies(new Uri("http://www.pets.pawelkowalewicz.pl/"));
 
                         return RedirectToAction("Index", "Home");

@@ -147,7 +147,12 @@ namespace Pets_UI.Mvc.Controllers
             }
 
             ViewBag.AnimalId = animal.Id;
-            return View(new AnimalToCare());
+
+            var animalToCare = new AnimalToCare();
+            animalToCare.DateFrom = DateTime.Today;
+            animalToCare.DateTo = DateTime.Today;
+
+            return View(animalToCare);
         }
 
         [HttpPost]

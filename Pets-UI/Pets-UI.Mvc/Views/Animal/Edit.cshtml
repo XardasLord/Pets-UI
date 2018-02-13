@@ -1,7 +1,7 @@
 ﻿@model Pets_UI.Mvc.Models.Animal
 
 @{
-    ViewBag.Title = "Edit";
+    ViewBag.Title = "Edit your animal";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
@@ -30,7 +30,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.YearOfBirth, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.YearOfBirth, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.EditorFor(model => model.YearOfBirth, new { htmlAttributes = new { @class = "form-control", @type = "number", @min = "1900", @step = "1", @max = $"{DateTime.Now.Year}" } })
                 @Html.ValidationMessageFor(model => model.YearOfBirth, "", new { @class = "text-danger" })
             </div>
         </div>
