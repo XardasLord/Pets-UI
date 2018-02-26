@@ -5,8 +5,8 @@
 <div class="jumbotron">
     <h1>Pets-IU</h1>
     <p class="lead">This is an UI application built in ASP.NET MVC which is using my own RESTful API which I created before. Both repositories are available by clicking the buttons below.</p>
-    <p><a href="https://github.com/XardasLord/Pets" class="btn btn-primary btn-lg">Here is a repository for this API built in .NET Core &raquo;</a></p>
-    <p><a href="https://github.com/XardasLord/Pets-UI" class="btn btn-primary btn-lg">Here is a repository for this ASP.NET MVC project &raquo;</a></p>
+    <p><a href="https://github.com/XardasLord/Pets" class="btn btn-success btn-lg">Here is a repository for this API built in .NET Core &raquo;</a></p>
+    <p><a href="https://github.com/XardasLord/Pets-UI" class="btn btn-success btn-lg">Here is a repository for this ASP.NET MVC project &raquo;</a></p>
 </div>
 
 <div class="row">
@@ -15,12 +15,12 @@
         
         <form id="form1" method="get" action="@Url.Action("Show", "Animal")">
             <p>
-                <input class="btn btn-default" type="submit" value="Show available animals &raquo;" />
+                <input class="btn btn-primary" type="submit" value="Show available animals &raquo;" />
             </p>
         </form>
         <form id="form1" method="get" action="@Url.Action("ShowArchive", "Animal")">
             <p>
-                <input class="btn btn-default" type="submit" value="Show animals (archive) &raquo;" />
+                <input class="btn btn-primary" type="submit" value="Show animals (archive) &raquo;" />
             </p>
         </form>
     </div>
@@ -28,23 +28,23 @@
         <h2>My animals</h2>
         <form id="form1" method="get" action="@Url.Action("MyAnimals", "Animal")">
             <p>
-                <input class="btn btn-default" type="submit" value="Show my animals &raquo;" />
+                <input class="btn btn-primary" type="submit" value="Show my animals &raquo;" />
             </p>
         </form>
         <form id="form1" method="get" action="@Url.Action("MyTakenAnimals", "Animal")">
             <p>
-                <input class="btn btn-default" type="submit" value="Show my taken animals to care &raquo;" />
+                <input class="btn btn-primary" type="submit" value="Show my taken animals to care &raquo;" />
             </p>
         </form>
         <form id="form1" method="get" action="@Url.Action("MyTakenAnimalsArchive", "Animal")">
             <p>
-                <input class="btn btn-default" type="submit" value="Show my taken animals to care (archive) &raquo;" />
+                <input class="btn btn-primary" type="submit" value="Show my taken animals to care (archive) &raquo;" />
             </p>
         </form>
     </div>
     <div class="col-md-4">
         <h2>Topic</h2>
         <p>Text...</p>
-        <p><a class="btn btn-default" href="">Example link &raquo;</a></p>
+        <p><a class="btn btn-primary" href="">Example link &raquo;</a></p>
     </div>
 </div>
