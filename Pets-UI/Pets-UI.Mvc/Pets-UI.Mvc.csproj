@@ -203,6 +203,7 @@
     <Content Include="Views\Animal\MyTakenAnimals.cshtml" />
     <Content Include="Views\Animal\MyTakenAnimalsArchive.cshtml" />
     <Content Include="Views\User\Profile.cshtml" />
+    <Content Include="Views\Shared\_AddButtonPartial.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
